@@ -2,13 +2,14 @@
   <section>
     <h2>{{ teamName }}</h2>
     <ul>
-      <user-item
-        v-for="member in members"
-        :key="member.id"
-        :name="member.fullName"
-        :role="member.role"
-      ></user-item>
+      <UserItem
+          v-for="member in members"
+          :key="member.id"
+          :name="member.fullName"
+          :role="member.role"
+      />
     </ul>
+    <router-link :to="`/teams/members/1`">View Members Team 1</router-link>
   </section>
 </template>
 
@@ -21,13 +22,34 @@ export default {
   },
   data() {
     return {
-      teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
-    };
+      teamName: null,
+      members: []
+    }
   },
+  inject: ["users", "teams"],
+  created() {
+    this.loadTeamMembers(this.teamId)
+  },
+  watch: {
+    teamId(newId) {
+      this.loadTeamMembers(newId)
+    }
+  },
+  props: ["teamId"],
+  methods: {
+    loadTeamMembers(teamId) {
+      const team = this.teams.find(team => team.id === Number(teamId));
+      if (team) {
+        const membersList = [];
+        for (const member of team.members) {
+          const user = this.users.find(user => user.id === member)
+          membersList.push(user)
+        }
+        this.members = membersList
+        this.teamName = team.name
+      }
+    }
+  }
 };
 </script>
 
