@@ -6,16 +6,18 @@ import UsersList from "@/components/users/UsersList";
 import TeamMembers from "@/components/teams/TeamMembers";
 import NotFound from "@/components/nav/NotFound"
 
+let baseRoute = process.env.NODE_ENV === "production" ? "/vue-router-exp/dist" : "/";
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: "/",
-            redirect: "/teams"
+            path: baseRoute,
+            redirect: `${baseRoute}teams`
         },
         {
             name: "teams",
-            path: '/teams',
+            path: `${baseRoute}teams`,
             component: TeamsList,
             children: [
                 {
@@ -27,7 +29,8 @@ const router = createRouter({
             ]
         },
         {
-            path: '/users',
+            name: "users",
+            path: `${baseRoute}users`,
             component: UsersList
         },
         {

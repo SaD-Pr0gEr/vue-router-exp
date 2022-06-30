@@ -16,9 +16,9 @@ export default {
         return {
             activePage: 'teams-list',
             teams: [
-                {id: 1, name: 'Frontend Engineers', members: [1, 2]},
-                {id: 2, name: 'Backend Engineers', members: [1, 2, 3]},
-                {id: 3, name: 'Client Consulting', members: [4, 5]},
+                {id: 1, name: 'Frontend Engineers', members: [1, 2], searchRole: "Engineer"},
+                {id: 2, name: 'Backend Engineers', members: [1, 2, 3], searchRole: "Engineer"},
+                {id: 3, name: 'Client Consulting', members: [4, 5], searchRole: "Consultant"},
             ],
             users: [
                 {id: 1, fullName: 'Max Schwarz', role: 'Engineer'},

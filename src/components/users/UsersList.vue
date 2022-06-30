@@ -15,7 +15,7 @@ export default {
     inject: ['users'],
     methods: {
         confirmRedirect () {
-            this.$router.push("/teams")
+            this.$router.push({name: "teams"})
         }
     }
 };
