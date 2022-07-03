@@ -4,7 +4,9 @@ import App from './App.vue';
 import TeamsList from "@/components/teams/TeamsList";
 import UsersList from "@/components/users/UsersList";
 import TeamMembers from "@/components/teams/TeamMembers";
-import NotFound from "@/components/nav/NotFound"
+import NotFound from "@/components/nav/NotFound";
+import TeamsFooter from "@/components/teams/TeamsFooter";
+import UsersFooter from "@/components/users/UsersFooter";
 
 let baseRoute = process.env.NODE_ENV === "production" ? "/vue-router-exp/dist" : "/";
 
@@ -18,7 +20,7 @@ const router = createRouter({
         {
             name: "teams",
             path: `${baseRoute}teams`,
-            component: TeamsList,
+            components: {default: TeamsList, footer: TeamsFooter, },
             children: [
                 {
                     name: "team-members",
@@ -31,13 +33,20 @@ const router = createRouter({
         {
             name: "users",
             path: `${baseRoute}users`,
-            component: UsersList
+            components: {default: UsersList, footer: UsersFooter}
         },
         {
-            path: "/:notFound(.*)",
+            name: "notFound",
+            path: "/:notFound(.*)*",
             component: NotFound
         }
-    ]
+    ],
+    scrollBehavior(to, from, safePosition) {
+        if(safePosition) {
+            return safePosition
+        }
+        return {left: 0, top: 0}
+    }
 });
 
 const app = createApp(App);

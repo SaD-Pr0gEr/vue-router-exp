@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <li>
         <h3>{{ name }}</h3>
         <div class="role" :class="roleClass">{{ role }}</div>
-    </div>
+    </li>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
     <button class="confirm" @click="confirmRedirect"><span>confirm redirect to users</span></button>
     <ul>
         <teams-item
-            v-for="team in filterTeams"
+            v-for="team in filterTeams()"
             :key="team.id"
             :id="team.id"
             :name="team.name"
@@ -25,23 +25,16 @@ export default {
         confirmRedirect() {
             this.$router.push("/users")
         },
-    },
-    computed: {
         filterTeams() {
-            return this.sortParam ? this.teams.filter(search => search.searchRole === this.sortParam) : this.teams
+            return this.$route.query.sort ? this.teams.filter(search => search.searchRole === this.$route.query.sort) : this.teams
         }
     },
     created() {
-        this.$route.query.sort != null ? this.sortParam = this.$route.query.sort : null
-    },
-    data() {
-        return {
-            sortParam: null
-        }
+        this.filterTeams()
     },
     watch: {
         $route(newRoute) {
-            this.$router.replace(newRoute)
+            this.$router.push(newRoute)
         }
     }
 };

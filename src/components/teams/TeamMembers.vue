@@ -46,6 +46,8 @@ export default {
                 }
                 this.members = membersList
                 this.teamName = team.name
+            } else {
+                this.$router.push({name: "notFound"})
             }
         }
     },
